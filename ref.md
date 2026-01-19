@@ -1,0 +1,3 @@
+﻿```
+"content": "<tool_call>\n{\"name\": \"search-upat-patent-count-by-query\", \"arguments\": {\"query\": \"TAC:(LED)\", \"country\": \"US\"}}\n</tool_call>\n<tool_call>\n{\"name\": \"search-upat-patent-count-by-query\", \"arguments\": {\"query\": \"TAC:(LED)\", \"country\": \"TW\"}}\n</tool_call>\n<tool_call>\n{\"name\": \"search-upat-patent-count-by-query\", \"arguments\": {\"query\": \"TAC:(LED)\", \"country\": \"JP\"}}\n</tool_call>",
+```
