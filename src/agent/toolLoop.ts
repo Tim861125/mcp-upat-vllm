@@ -57,14 +57,16 @@ export async function runAgent(userInput: string) {
         msg.tool_calls = parsedToolCalls;
         msg.content = null;
       }
+      console.log("LLM Response parse:\n", JSON.stringify(msg, null, 2));
     }
-    console.log("LLM Response fix:\n", JSON.stringify(msg, null, 2));
     // ✅ 沒有 tool call → 結束
     if (!msg.tool_calls || msg.tool_calls.length === 0) {
       return msg.content;
     }
 
-    // ✅ 有 tool call → 執行
+    // 有 tool call → 先加入 assistant 消息，再執行, 避免 llm 不知道自己 call 了什麼工具
+    messages.push(msg);
+
     for (const call of msg.tool_calls) {
       const result = await mcpClient.callTool({
         name: call.function.name,
@@ -73,6 +75,7 @@ export async function runAgent(userInput: string) {
 
       messages.push({
         role: "tool",
+        tool_call_id: call.id,
         tool_name: call.function.name,
         content: JSON.stringify(result)
       });
